@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h1>Student Registration</h1>
+    <form method="post">
+        <label for="student_id">Student ID</label>
+        <input id="student_id" name="student_id" type="text" required>
+
+        <label for="full_name">Full name</label>
+        <input id="full_name" name="full_name" type="text" required>
+
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" minlength="8" required>
+
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+    <p>Already registered? <a class="btn btn-secondary" href="{{ url_for('main.login') }}">Log in</a></p>
+</section>
+{% endblock %}
