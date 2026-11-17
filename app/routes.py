@@ -91,4 +91,25 @@ def login():
 
     session["student_id"] = student.id
     flash("You are logged in.", "success")
+    return redirect(url_for("main.dashboard"))
+
+
+@main.route("/dashboard")
+def dashboard():
+    """Show the protected student dashboard."""
+    student_id = session.get("student_id")
+    student = db.session.get(Student, student_id) if student_id is not None else None
+    if student is None:
+        session.pop("student_id", None)
+        flash("Please log in to access that page.", "warning")
+        return redirect(url_for("main.login"))
+
+    return render_template("dashboard.html", student=student)
+
+
+@main.route("/logout", methods=["POST"])
+def logout():
+    """End the student's authenticated session."""
+    session.pop("student_id", None)
+    flash("You are logged out.", "success")
     return redirect(url_for("main.login"))

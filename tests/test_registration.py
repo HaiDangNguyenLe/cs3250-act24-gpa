@@ -34,6 +34,7 @@ def test_registration_creates_account_and_student_can_log_in(client, app):
 
     assert response.status_code == 200
     assert b"You are logged in." in response.data
+    assert b"Student Dashboard" in response.data
     with client.session_transaction() as session:
         assert session["student_id"] == student.id
 
